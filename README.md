@@ -222,10 +222,6 @@ mvn test
 mvn package
 ```
 
-## License
-
-Apache License 2.0
-
 ## Contributing
 
 Contributions are welcome! Please ensure:
