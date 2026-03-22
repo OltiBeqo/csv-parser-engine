@@ -22,6 +22,7 @@
     <modules>
         <module>csv-core</module>
         <module>csv-benchmarks</module>
+        <module>csv-examples</module>
     </modules>
 
     <dependencyManagement>
