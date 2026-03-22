@@ -12,6 +12,21 @@
 
     <name>CSV Parser Engine</name>
     <description>High-performance Java CSV parser compliant with RFC 4180</description>
+    <url>https://github.com/OltiBeqo/csv-parser-engine</url>
+
+    <scm>
+        <url>https://github.com/OltiBeqo/csv-parser-engine</url>
+        <connection>scm:git:https://github.com/OltiBeqo/csv-parser-engine.git</connection>
+        <developerConnection>scm:git:https://github.com/OltiBeqo/csv-parser-engine.git</developerConnection>
+        <tag>HEAD</tag>
+    </scm>
+
+    <distributionManagement>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+    </distributionManagement>
 
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
