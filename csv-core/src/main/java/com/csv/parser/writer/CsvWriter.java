@@ -1,11 +1,11 @@
 package com.csv.parser.writer;
 
 import com.csv.parser.config.CsvConfig;
+import com.csv.parser.exception.ExceptionMessages;
 
 import java.io.IOException;
 import java.io.Writer;
 import java.util.List;
-
 /**
  * RFC 4180-compliant CSV writer for producing properly formatted CSV output.
  * 
@@ -166,7 +166,7 @@ public class CsvWriter implements AutoCloseable {
      */
     private void writeField(String value) throws IOException {
         if (value == null) {
-            throw new IllegalArgumentException("Field value cannot be null");
+            throw new IllegalArgumentException(ExceptionMessages.FIELD_VALUE_CANNOT_BE_NULL);
         }
 
         boolean needsQuotes = needsQuoting(value);
@@ -217,7 +217,7 @@ public class CsvWriter implements AutoCloseable {
 
     private void checkNotClosed() throws IOException {
         if (closed) {
-            throw new IOException("Writer is closed");
+            throw new IOException(ExceptionMessages.WRITER_IS_CLOSED);
         }
     }
 }

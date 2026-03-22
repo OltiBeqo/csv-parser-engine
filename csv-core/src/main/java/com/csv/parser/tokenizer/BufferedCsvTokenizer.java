@@ -1,5 +1,6 @@
 package com.csv.parser.tokenizer;
 
+import com.csv.parser.exception.ExceptionMessages;
 import java.io.IOException;
 import java.io.Reader;
 
@@ -13,10 +14,10 @@ public class BufferedCsvTokenizer implements CsvTokenizer {
 
     public BufferedCsvTokenizer(Reader reader, int bufferSize) {
         if (reader == null) {
-            throw new IllegalArgumentException("Reader cannot be null");
+            throw new IllegalArgumentException(ExceptionMessages.READER_CANNOT_BE_NULL);
         }
         if (bufferSize <= 0) {
-            throw new IllegalArgumentException("Buffer size must be greater than 0");
+            throw new IllegalArgumentException(ExceptionMessages.INVALID_BUFFER_SIZE);
         }
         this.reader = reader;
         this.buffer = new char[bufferSize];

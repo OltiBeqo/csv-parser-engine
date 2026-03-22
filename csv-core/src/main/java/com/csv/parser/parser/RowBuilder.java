@@ -1,5 +1,6 @@
 package com.csv.parser.parser;
 
+import com.csv.parser.exception.ExceptionMessages;
 import com.csv.parser.model.CsvRow;
 
 import java.util.ArrayList;
@@ -49,7 +50,7 @@ public class RowBuilder {
 
     public void setHeader(List<String> headers) {
         if (headers == null) {
-            throw new IllegalArgumentException("Headers cannot be null");
+            throw new IllegalArgumentException(ExceptionMessages.HEADERS_CANNOT_BE_NULL);
         }
         headerIndex = new java.util.HashMap<>();
 

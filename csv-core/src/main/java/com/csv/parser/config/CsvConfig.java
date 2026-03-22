@@ -1,6 +1,7 @@
 package com.csv.parser.config;
 
 import com.csv.parser.exception.CsvConfigurationException;
+import com.csv.parser.exception.ExceptionMessages;
 
 /**
  * Immutable configuration class for CSV parsing and writing operations.
@@ -62,21 +63,15 @@ public final class CsvConfig {
     private void validate() {
 
         if (delimiter == quoteChar) {
-            throw new CsvConfigurationException(
-                    "Delimiter and quote character cannot be the same."
-            );
+            throw new CsvConfigurationException(ExceptionMessages.DELIMITER_EQUALS_QUOTE_CHAR);
         }
 
         if (escapeChar == delimiter) {
-            throw new CsvConfigurationException(
-                    "Escape character cannot be the same as delimiter."
-            );
+            throw new CsvConfigurationException(ExceptionMessages.ESCAPE_CHAR_EQUALS_DELIMITER);
         }
 
         if (bufferSize <= 0) {
-            throw new CsvConfigurationException(
-                    "Buffer size must be greater than 0."
-            );
+            throw new CsvConfigurationException(ExceptionMessages.INVALID_BUFFER_SIZE);
         }
     }
 

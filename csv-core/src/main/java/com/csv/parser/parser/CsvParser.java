@@ -1,6 +1,7 @@
 package com.csv.parser.parser;
 
 import com.csv.parser.config.CsvConfig;
+import com.csv.parser.exception.ExceptionMessages;
 import com.csv.parser.model.CsvRow;
 import com.csv.parser.tokenizer.BufferedCsvTokenizer;
 import com.csv.parser.tokenizer.CsvTokenizer;
@@ -62,7 +63,7 @@ public class CsvParser {
      */
     public Iterator<CsvRow> iterator(File file) throws IOException {
         if (file == null) {
-            throw new IllegalArgumentException("File cannot be null");
+            throw new IllegalArgumentException(ExceptionMessages.FILE_CANNOT_BE_NULL);
         }
         FileReader reader = new FileReader(file);
         try {
@@ -84,7 +85,7 @@ public class CsvParser {
      */
     public Iterator<CsvRow> iterator(Reader reader) {
         if (reader == null) {
-            throw new IllegalArgumentException("Reader cannot be null");
+            throw new IllegalArgumentException(ExceptionMessages.READER_CANNOT_BE_NULL);
         }
         CsvTokenizer tokenizer = new BufferedCsvTokenizer(reader, config.getBufferSize());
         return new CsvStateMachine(tokenizer, config);
@@ -102,7 +103,7 @@ public class CsvParser {
      */
     public Stream<CsvRow> stream(File file) throws IOException {
         if (file == null) {
-            throw new IllegalArgumentException("File cannot be null");
+            throw new IllegalArgumentException(ExceptionMessages.FILE_CANNOT_BE_NULL);
         }
         FileReader reader = new FileReader(file);
         try {
@@ -114,7 +115,7 @@ public class CsvParser {
                 try {
                     reader.close();
                 } catch (IOException e) {
-                    throw new RuntimeException("Error closing reader", e);
+                    throw new RuntimeException(ExceptionMessages.ERROR_CLOSING_READER, e);
                 }
             });
         } catch (Exception e) {
@@ -132,7 +133,7 @@ public class CsvParser {
      */
     public Stream<CsvRow> stream(Reader reader) {
         if (reader == null) {
-            throw new IllegalArgumentException("Reader cannot be null");
+            throw new IllegalArgumentException(ExceptionMessages.READER_CANNOT_BE_NULL);
         }
         Iterator<CsvRow> it = iterator(reader);
         return StreamSupport.stream(
@@ -155,10 +156,10 @@ public class CsvParser {
      */
     public <T> Iterator<T> mapIterator(File file, CsvRowMapper<T> mapper) throws IOException {
         if (file == null) {
-            throw new IllegalArgumentException("File cannot be null");
+            throw new IllegalArgumentException(ExceptionMessages.FILE_CANNOT_BE_NULL);
         }
         if (mapper == null) {
-            throw new IllegalArgumentException("Mapper cannot be null");
+            throw new IllegalArgumentException(ExceptionMessages.MAPPER_CANNOT_BE_NULL);
         }
         FileReader reader = new FileReader(file);
         try {
@@ -180,10 +181,10 @@ public class CsvParser {
      */
     public <T> Iterator<T> mapIterator(Reader reader, CsvRowMapper<T> mapper) {
         if (reader == null) {
-            throw new IllegalArgumentException("Reader cannot be null");
+            throw new IllegalArgumentException(ExceptionMessages.READER_CANNOT_BE_NULL);
         }
         if (mapper == null) {
-            throw new IllegalArgumentException("Mapper cannot be null");
+            throw new IllegalArgumentException(ExceptionMessages.MAPPER_CANNOT_BE_NULL);
         }
         return mapIterator(iterator(reader), mapper);
     }
@@ -199,10 +200,10 @@ public class CsvParser {
      */
     public <T> Iterator<T> mapIterator(Iterator<CsvRow> rowIterator, CsvRowMapper<T> mapper) {
         if (rowIterator == null) {
-            throw new IllegalArgumentException("Row iterator cannot be null");
+            throw new IllegalArgumentException(ExceptionMessages.ROW_ITERATOR_CANNOT_BE_NULL);
         }
         if (mapper == null) {
-            throw new IllegalArgumentException("Mapper cannot be null");
+            throw new IllegalArgumentException(ExceptionMessages.MAPPER_CANNOT_BE_NULL);
         }
         return new MappingIterator<>(rowIterator, mapper);
     }
@@ -221,10 +222,10 @@ public class CsvParser {
      */
     public <T> Stream<T> mapStream(File file, CsvRowMapper<T> mapper) throws IOException {
         if (file == null) {
-            throw new IllegalArgumentException("File cannot be null");
+            throw new IllegalArgumentException(ExceptionMessages.FILE_CANNOT_BE_NULL);
         }
         if (mapper == null) {
-            throw new IllegalArgumentException("Mapper cannot be null");
+            throw new IllegalArgumentException(ExceptionMessages.MAPPER_CANNOT_BE_NULL);
         }
         FileReader reader = new FileReader(file);
         try {
@@ -235,7 +236,7 @@ public class CsvParser {
                 try {
                     reader.close();
                 } catch (IOException e) {
-                    throw new RuntimeException("Error closing reader", e);
+                    throw new RuntimeException(ExceptionMessages.ERROR_CLOSING_READER, e);
                 }
             });
             return rowStream.map(mapper::map);
@@ -256,10 +257,10 @@ public class CsvParser {
      */
     public <T> Stream<T> mapStream(Reader reader, CsvRowMapper<T> mapper) {
         if (reader == null) {
-            throw new IllegalArgumentException("Reader cannot be null");
+            throw new IllegalArgumentException(ExceptionMessages.READER_CANNOT_BE_NULL);
         }
         if (mapper == null) {
-            throw new IllegalArgumentException("Mapper cannot be null");
+            throw new IllegalArgumentException(ExceptionMessages.MAPPER_CANNOT_BE_NULL);
         }
         return stream(reader).map(mapper::map);
     }

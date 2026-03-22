@@ -2,6 +2,7 @@ package com.csv.parser.parser;
 
 import com.csv.parser.config.CsvConfig;
 import com.csv.parser.exception.CsvParseException;
+import com.csv.parser.exception.ExceptionMessages;
 import com.csv.parser.model.CsvRow;
 import com.csv.parser.tokenizer.CsvTokenizer;
 
@@ -28,10 +29,10 @@ public class CsvStateMachine implements Iterator<CsvRow> {
 
     public CsvStateMachine(CsvTokenizer tokenizer, CsvConfig config) {
         if (tokenizer == null) {
-            throw new IllegalArgumentException("Tokenizer cannot be null");
+            throw new IllegalArgumentException(ExceptionMessages.TOKENIZER_CANNOT_BE_NULL);
         }
         if (config == null) {
-            throw new IllegalArgumentException("Config cannot be null");
+            throw new IllegalArgumentException(ExceptionMessages.CONFIG_CANNOT_BE_NULL);
         }
         this.tokenizer = tokenizer;
         this.config = config;
@@ -53,7 +54,7 @@ public class CsvStateMachine implements Iterator<CsvRow> {
             }
 
         } catch (IOException e) {
-            throw new CsvParseException("Error parsing CSV", e);
+            throw new CsvParseException(ExceptionMessages.ERROR_PARSING_CSV, e);
         }
     }
 
@@ -87,7 +88,7 @@ public class CsvStateMachine implements Iterator<CsvRow> {
             if (tokenizer.isEndOfInput()) { // EOF
                 if (state == IN_QUOTED_FIELD) {
                     throw new CsvParseException(
-                            String.format("Unclosed quoted field at line %d, field %d", lineNumber, fieldNumber)
+                            String.format(ExceptionMessages.UNCLOSED_QUOTED_FIELD, lineNumber, fieldNumber)
                     );
                 }
 
@@ -167,11 +168,11 @@ public class CsvStateMachine implements Iterator<CsvRow> {
                         // In lenient mode, only treat whitespace as skippable
                         // Other characters still need to be delim/newline
                         throw new CsvParseException(
-                                String.format("Invalid character '%c' after closing quote at line %d, field %d", c, lineNumber, fieldNumber)
+                                String.format(ExceptionMessages.INVALID_CHAR_AFTER_QUOTE_STRICT, c, lineNumber, fieldNumber)
                         );
                     } else {
                         throw new CsvParseException(
-                                String.format("Invalid character '%c' after closing quote at line %d, field %d", c, lineNumber, fieldNumber)
+                                String.format(ExceptionMessages.INVALID_CHAR_AFTER_QUOTE_STRICT, c, lineNumber, fieldNumber)
                         );
                     }
                     break;

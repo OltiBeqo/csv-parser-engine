@@ -2,6 +2,7 @@ package com.csv.parser.model;
 
 import com.csv.parser.config.CsvConfig;
 import com.csv.parser.exception.CsvException;
+import com.csv.parser.exception.ExceptionMessages;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -68,7 +69,7 @@ public class CsvRow {
     public String get(String columnName) {
 
         if (headerIndex == null) {
-            throw new CsvException("CSV does not contain headers.");
+            throw new CsvException(ExceptionMessages.CSV_DOES_NOT_CONTAIN_HEADERS);
         }
 
         Integer index = ignoreCase 
@@ -76,7 +77,7 @@ public class CsvRow {
             : headerIndex.get(columnName);
 
         if (index == null) {
-            throw new CsvException("Column not found: " + columnName);
+            throw new CsvException(ExceptionMessages.COLUMN_NOT_FOUND + columnName);
         }
 
         return values.get(index);
