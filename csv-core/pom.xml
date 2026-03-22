@@ -8,7 +8,7 @@
     <parent>
         <groupId>com.csv.parser</groupId>
         <artifactId>csv-parser-engine</artifactId>
-        <version>1.0.0</version>
+        <version>1.0.2</version>
     </parent>
 
     <artifactId>csv-core</artifactId>
